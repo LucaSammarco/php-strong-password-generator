@@ -9,7 +9,7 @@ if (empty($_SESSION)) {
     header("Location: ./login.php");
 
 }
-var_dump($_SESSION);
+
 
 
 

@@ -3,13 +3,16 @@ session_start();
  
 include __DIR__ . '/users.php';
 
+if (isset($_SESSION['name'])) {
+    header('Location: ./index.php');
+    exit;
+};
+
+
 $authenticated = null;
 $username = null;
 $password = null;
 
-
-
-var_dump($users);
 
 if (isset($_GET['username']) && isset($_GET['password'])) {
     $username = $_GET['username'];
@@ -23,21 +26,12 @@ if (isset($_GET['username']) && isset($_GET['password'])) {
             exit;
         }
     }
+
+
     $authenticated = false;
-} else {
-    $authenticated = false;
+
+
 }
-
-if ($authenticated === false && $username !== null && $password !== null) {
-    echo 'Invalid username or password';
-}
-
-if ($authenticated === true) {
-    header('Location: ./index.php');
-}
-
-
-
 
 ?>
 
@@ -64,7 +58,10 @@ if ($authenticated === true) {
            <input type="password" name="password" id="password" />
            <button type="submit">Submit</button>
        </form>
-
+       
+       <?php if ($authenticated === false && $username !== null && $password !== null) {
+    echo 'Invalid username or password';
+} ?>
 
    </main>
 
