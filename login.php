@@ -1,4 +1,45 @@
+<?php
+session_start();
+ 
+include __DIR__ . '/users.php';
 
+$authenticated = null;
+$username = null;
+$password = null;
+
+
+
+var_dump($users);
+
+if (isset($_GET['username']) && isset($_GET['password'])) {
+    $username = $_GET['username'];
+    $password = $_GET['password'];
+   
+    foreach ($users as $user) {
+        if ($user['username'] === $username && $user['password'] === $password) {
+            $_SESSION['name'] = $username;
+            $authenticated = true;
+            header('Location: ./index.php');
+            exit;
+        }
+    }
+    $authenticated = false;
+} else {
+    $authenticated = false;
+}
+
+if ($authenticated === false && $username !== null && $password !== null) {
+    echo 'Invalid username or password';
+}
+
+if ($authenticated === true) {
+    header('Location: ./index.php');
+}
+
+
+
+
+?>
 
 
 
@@ -14,8 +55,8 @@
 <body>
 <main>
        
-
-       <form action="./username.php" method="GET">
+    <h1>Enter your username and password</h1>
+       <form action="" method="GET">
            
            <label for="username">Username:</label>
            <input type="text" name="username" id="username" />
