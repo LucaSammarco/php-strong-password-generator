@@ -1,14 +1,19 @@
 <?php
 
- require_once __DIR__ . '/utilities/functions.php';
+require_once __DIR__ . '/utilities/functions.php';
 
 session_start();
 
+
+if (empty($_SESSION)) {
+    header("Location: ./login.php");
+
+}
 var_dump($_SESSION);
 
-// $_SESSION['username'] = "admin";
 
-?>
+
+?> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,6 +49,8 @@ var_dump($_SESSION);
             
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" />
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" />
             <button type="submit">Submit</button>
         </form>
 
